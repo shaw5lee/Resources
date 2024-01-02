@@ -123,6 +123,9 @@ https://staffwww.fullcoll.edu/aclifton/cs241/lecture-registers-simple-loops.html
 
 https://www.mwftr.com/uC12/416_05_F12_x86_Assembly%202.pdf
 
+https://home.adelphi.edu/~siegfried/cs174/174l4.pdf
+
+
 ### Concepts
 
 We have been using x86_64 intel assmebly.
@@ -173,13 +176,31 @@ mov rax, QWORD[rdx] -> Okay \
 mov BYTE[al], cl -> Okay\
 mov WORD[ax], WORD[cx] -> Invalid
 
-Memory can also be accessed by an offset.\
-Offsetsa are particularly useful when taking parameters from the stack (rsp + offset) and when accessing elements of an array or string.
+Memory does not require a prefix, only square brackets, but without a given size prefix the compiler makes inferences on what the size should be.
+
+The register the data is being moved to must be the same size as the data being accessed. Size prefixing helps.
+
+In x86_64 Intel assembly, pointers are 8 bytes (QWORD).
+
+Memory can also be accessed by an offset.
+
+Offsets are particularly useful when taking parameters from the stack (rsp + offset) and when accessing elements of an array or string.
 
 #### System calls
 
 #### Frequently used instructions
 - mov
+  - Both the source and destination must be the same size
+  - The only instruction which supports QWORD immediate operands.
+    - ex: you can do `mov rax, some_huge_constant`, but not `add rax, some_huge_constant`
+  - The high dword of the destination for mov of 32-bit registers is implicitly set to zero. 
+    - This zero-ing however does not occur for words or bytes
+    - This behavior applies to many other instructions as well
+- movzx
+  - "Move with zero-extended"
+  - Moves smaller registers into larger ones, zeroing the higher, unspecifified portion of the destination/larger register.
+- movsx
+  - Same as movzx, but also extends the sign
 - cmp
 - test
 - jmp
@@ -195,12 +216,17 @@ Offsetsa are particularly useful when taking parameters from the stack (rsp + of
 - idiv
 - imul
 - xor
+  - Performs the logical exclusive-or operation on two registers
+  - can be used with duplicate registers to zero it out
+    - a bit more efficient than `mov r, 0`
 - ror
 - rol
 - shr
 - shl
 - xchg
   - Swaps the contents of the given two registers
+  - Neither argument can be an immediate value. Both must be either registers or a register and memory.
+  - 32-bit registers implicitly zeroes the high dword.
 
 ## Networking
 
