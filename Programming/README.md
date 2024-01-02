@@ -20,12 +20,33 @@
 
 ## Python
 ### Know for Board
+- 'with' statement
+- socket module
+  - send() vs. sendall()
+  - clients and servers
+- struct module
+  - struct pack
+  - struct unpack
+- official python documentation
 
 ### Concepts
 
 ## C
 
 ### Know for Board
+- dynamic memory allocation
+  - malloc vs. calloc
+  - stack vs. heap
+- functions
+- loops
+  - continue
+  - break
+- structs
+  - nested structs
+- memory deferencing
+  - "*"
+  - "[ ]"
+- man pages
 
 ### Useful links
 https://users.ece.utexas.edu/~adnan/gdb-refcard.pdf
@@ -47,6 +68,14 @@ https://www.learn-c.org/en/Linked_lists
 ## Assembly
 
 ### Know for Board
+- register sizing
+- memory access
+- test vs. cmp
+- base + offset
+- loops/ jmp
+- function arguments
+- caller vs. calle-saved registers
+- intel manual
 
 ### Useful links
 https://github.com/cyrus-and/gdb-dashboard
