@@ -1,5 +1,6 @@
 # Programming Notes
 
+Table of contents
 - [Programming Notes](#programming-notes)
   - [Python](#python)
     - [Know for Board](#know-for-board)
@@ -12,6 +13,10 @@
     - [Know for Board](#know-for-board-2)
     - [Useful links](#useful-links-1)
     - [Concepts](#concepts-2)
+      - [Registers](#registers)
+        - [Registers as parameters (in order):](#registers-as-parameters-in-order)
+        - [Important registers:](#important-registers)
+      - [Fundamental Data Types](#fundamental-data-types)
   - [Networking](#networking)
     - [Know for Board](#know-for-board-3)
     - [Useful links](#useful-links-2)
@@ -106,10 +111,45 @@ https://www.tutorialspoint.com/assembly_programming/assembly_system_calls.htm
 
 https://www.reddit.com/r/C_Programming/comments/l8zs5a/calling_printf_from_nasm_cause_seg_fault/
 
+https://stackoverflow.com/questions/45500399/why-can-i-access-lower-dword-word-byte-in-a-register-but-not-higher
 
+https://cs.brown.edu/courses/cs033/docs/guides/x64_cheatsheet.pdf
+
+https://staffwww.fullcoll.edu/aclifton/cs241/lecture-registers-simple-loops.html
+
+https://www.mwftr.com/uC12/416_05_F12_x86_Assembly%202.pdf
 
 ### Concepts
 
+We have been using x86_64 intel assmebly.
+- On x86, a word is 16 bits (as opposed to ARM where a word is 32 bits).
+- It is a 64-bit version, so registers can go up to RAX (quadword / 64 bits) and there are the additional registers r8-r16.
+
+#### Registers
+
+##### Registers as parameters (in order):
+|               | rdi | rsi | rdx   | rcx   | r8 | r9 | Stack (rsp)  |
+|---------------|-----|-----|-------|-------|----|----|--------------|
+| Param #       | 1   | 2   | 3     | 4     | 5  | 6  | 7+           |
+|              | Scratch | Scratch | Scratch | Scratch | Scratch | Scratch | Preserved |
+| h/l char | -   | -   | dh dl | ch cl | -  | -  | rsp + offset |
+
+##### Important registers:
+|        | rax | rbp | rsp | rbx |
+|--------|-----|-----|-----|-----|
+| Info   | Return value | Frame pointer | Stack pointer | "base" pointer |
+|        | Scratch | Preserved | Preserved | Preserved |
+| h/l char | ah al | - | - | bh bl |
+
+
+#### Fundamental Data Types
+| byte | word | double word | quadword | double quadword |
+| --- | --- | --- | --- | --- |
+| 8 bits | 16 bits | 32 bits | 64 bits | 128 bits |
+| 1 byte | 2 bytes | 4 bytes | 8 bytes | 16 bytes |
+| char   | short   | int, float | long, double, pointer, size_t | long double |
+| h/l, or ##l | ## | e## | r## | r##:r&& |
+| r#b | r#w | r#d | r# | r#:r& |
 
 ## Networking
 
