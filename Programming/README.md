@@ -16,7 +16,10 @@ Table of contents
       - [Registers](#registers)
         - [Registers as parameters (in order):](#registers-as-parameters-in-order)
         - [Important registers:](#important-registers)
+        - [Other registers](#other-registers)
       - [Fundamental Data Types](#fundamental-data-types)
+      - [Accessing Memory](#accessing-memory)
+      - [Frequently used instructions](#frequently-used-instructions)
   - [Networking](#networking)
     - [Know for Board](#know-for-board-3)
     - [Useful links](#useful-links-2)
@@ -141,6 +144,18 @@ We have been using x86_64 intel assmebly.
 |        | Scratch | Preserved | Preserved | Preserved |
 | h/l char | ah al | - | - | bh bl |
 
+##### Other registers
+64-bit scratch registers: r8, r9, r10, r11
+
+64-bit preserved registers: r12, r13, r14, r15
+
+Special purpose:
+- rip: points to the next instruction to be executed
+  - branch/jmp modify this register directly
+  - addresses are always 64 bits, so eip and ip are rarely used
+- rflags: stores flags as bits
+  - Generally don't need to worry about these because condition instructions check them
+- the 'mov' instruction cannot be used on these. They instead have specialized instructions for getting and setting their values.
 
 #### Fundamental Data Types
 | byte | word | double word | quadword | double quadword |
@@ -150,6 +165,12 @@ We have been using x86_64 intel assmebly.
 | char   | short   | int, float | long, double, pointer, size_t | long double |
 | h/l, or ##l | ## | e## | r## | r##:r&& |
 | r#b | r#w | r#d | r# | r#:r& |
+
+#### Accessing Memory
+
+#### Frequently used instructions
+- mov
+- 
 
 ## Networking
 
