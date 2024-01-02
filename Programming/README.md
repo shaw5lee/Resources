@@ -19,6 +19,7 @@ Table of contents
         - [Other registers](#other-registers)
       - [Fundamental Data Types](#fundamental-data-types)
       - [Accessing Memory](#accessing-memory)
+      - [System calls](#system-calls)
       - [Frequently used instructions](#frequently-used-instructions)
   - [Networking](#networking)
     - [Know for Board](#know-for-board-3)
@@ -145,8 +146,7 @@ We have been using x86_64 intel assmebly.
 | h/l char | ah al | - | - | bh bl |
 
 ##### Other registers
-64-bit scratch registers: r8, r9, r10, r11
-
+64-bit scratch registers: r8, r9, r10, r11\
 64-bit preserved registers: r12, r13, r14, r15
 
 Special purpose:
@@ -167,10 +167,40 @@ Special purpose:
 | r#b | r#w | r#d | r# | r#:r& |
 
 #### Accessing Memory
+Any instruction can only contain a maximum of one memory location.\
+i.e.:\
+mov rax, QWORD[rdx] -> Okay \
+mov BYTE[al], cl -> Okay\
+mov WORD[ax], WORD[cx] -> Invalid
+
+Memory can also be accessed by an offset.\
+Offsetsa are particularly useful when taking parameters from the stack (rsp + offset) and when accessing elements of an array or string.
+
+#### System calls
 
 #### Frequently used instructions
 - mov
-- 
+- cmp
+- test
+- jmp
+- call
+- push/pop
+- syscall
+- inc
+- dec
+- add
+- sub
+- div
+- mul
+- idiv
+- imul
+- xor
+- ror
+- rol
+- shr
+- shl
+- xchg
+  - Swaps the contents of the given two registers
 
 ## Networking
 
