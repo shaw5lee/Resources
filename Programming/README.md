@@ -20,6 +20,7 @@ Table of contents
       - [Fundamental Data Types](#fundamental-data-types)
       - [Accessing Memory](#accessing-memory)
       - [System calls](#system-calls)
+      - [Flags](#flags)
       - [Frequently used instructions](#frequently-used-instructions)
   - [Networking](#networking)
     - [Know for Board](#know-for-board-3)
@@ -188,6 +189,17 @@ Offsets are particularly useful when taking parameters from the stack (rsp + off
 
 #### System calls
 
+#### Flags
+
+| Abbreviation | Description | Category | =1 | =0 |
+| ------------ | ----------- | -------- | --- | --- |
+| CF | Carry flag | Status | CY(Carry) | NC(No Carry) |
+| PF | Parity flag | Status | PE(Parity Even) | PO(Parity Odd) |
+| AF | Auxillary Carry Flag | Status | AC(Auxillary Carry) | NA(No Auxillary Carry) |
+| ZF | Zero Flag | Status | ZR(Zero) | NZ(Not Zero) |
+| SF | Sign Flag | Status | NG(Negative) | PL(Positive) |
+| OF | Overflow Flag | Status | OV(Overflow) | NV(Not Overflow) |
+
 #### Frequently used instructions
 - mov
   - Both the source and destination must be the same size
@@ -202,7 +214,12 @@ Offsets are particularly useful when taking parameters from the stack (rsp + off
 - movsx
   - Same as movzx, but also extends the sign
 - cmp
+  - Subtracts the second operand from the first operand, and sets the flags (CF, OF, SF, ZF, AF, PF) accordingly
+  - The Jcc, CMOVcc, and SETcc instructions are based off the flags set by this instruction
 - test
+  - Computes the bitwise logical AND of the two operands, then sets the SF, ZF, and PF flags according to the result
+  - Is marginally faster than cmp when checking if a value is zero
+  - Checks for parity, sign, and zero-ness
 - jmp
 - call
 - push/pop
