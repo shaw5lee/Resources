@@ -221,6 +221,18 @@ Offsets are particularly useful when taking parameters from the stack (rsp + off
   - Is marginally faster than cmp when checking if a value is zero
   - Checks for parity, sign, and zero-ness
 - jmp
+  - Within the *jcc* family
+  - Transfers program control to a different point in the instruction stream (without recording return information)
+    - Changes the instruction pointer (rip) to the location given after jmp
+  - j*cc* are jump conditional instructions.
+    - Will jump to the given location *if* the designated flag is set accordingly
+    - ex:
+      - jz: jump if zero flag is true (works the same as je)
+      - jc: jump if carry flag is true 
+      - jg: jump if greater (ZF=0 and SF=OF) (not equal, but the sign is positive if no overflow, and negative if overflow)
+      - jge: jump if greater than or equal to (SF=OF)
+      - jle: jump if less than or equal to (SF!=OF)
+      - jp: jump if parity (even number)
 - call
 - push/pop
 - syscall
