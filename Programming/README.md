@@ -246,6 +246,12 @@ Offsets are particularly useful when taking parameters from the stack (rsp + off
   - the operand size (16, 32, or 64) determines the amount by which the stack pointer is incremented (2, 4, or 8)
   - adding bytes (only 8 bits) is not supported.
 - syscall
+  - invokes an OS system-call handler at privilege level 0
+  - the register RAX stores the value of the system call number
+    - Can be found online
+      - https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md#x86_64-64_bit
+    - Or, can find installation-specific values by using `grep` within `usr/include`.
+      - The flags and mode are also defined in `usr/include`
 - inc
 - dec
 - add
