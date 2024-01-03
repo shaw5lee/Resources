@@ -234,7 +234,17 @@ Offsets are particularly useful when taking parameters from the stack (rsp + off
       - jle: jump if less than or equal to (SF!=OF)
       - jp: jump if parity (even number)
 - call
+  - it is important to push callee-saved registers onto the stack (non preserved) that will be used later
+    - a called function may modify non preserved/scratch registers
+  - the stack should be aligned in 16 byte "chunks"; ie, the stack pointer should be divisible by 16 bytes.
+    - Can ensure this by only pushing 16 byte increments onto the stack before calling a function
+    - Or by performing `push rbp` `mov rsp, rbp` at the beginning of the code.
+    - 8 bytes is a quadword, which is also the size of pointers. Stack alignment will be an issue when calling functions with pointer parameters (and long, double, size_t)
 - push/pop
+  - pop loads the value at the top of the stack into the destination operand (a register or memory), then increments the stack pointer
+  - push decrements the stack pointer, then stores the source operand (register or memory) at the top of the stack
+  - the operand size (16, 32, or 64) determines the amount by which the stack pointer is incremented (2, 4, or 8)
+  - adding bytes (only 8 bits) is not supported.
 - syscall
 - inc
 - dec
