@@ -253,7 +253,13 @@ Offsets are particularly useful when taking parameters from the stack (rsp + off
     - Or, can find installation-specific values by using `grep` within `usr/include`.
       - The flags and mode are also defined in `usr/include`
 - inc
+  - adds 1 to the destination operand (register or memory)
+  - unlike add, does not affect the Carry Flag (CF)
+  - Useful for counters
 - dec
+  - subtracts 1 from the destination operand (register or memory)
+  - unlike sub, does not affect the Carry Flag (CF)
+  - Useful for counters
 - add
 - sub
 - div
