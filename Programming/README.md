@@ -132,6 +132,9 @@ https://home.adelphi.edu/~siegfried/cs174/174l4.pdf
 We have been using x86_64 intel assmebly.
 - On x86, a word is 16 bits (as opposed to ARM where a word is 32 bits).
 - It is a 64-bit version, so registers can go up to RAX (quadword / 64 bits) and there are the additional registers r8-r16.
+  - Must use REX prefix for many of these operations
+    - Uses 64 bits instead of the default 32 bits
+    - doing so prevents usage within the intruction of the high-byte part: ah, bh, ch, dh
 
 #### Registers
 
@@ -261,11 +264,32 @@ Offsets are particularly useful when taking parameters from the stack (rsp + off
   - unlike sub, does not affect the Carry Flag (CF)
   - Useful for counters
 - add
+  - Adds the values of the first and second operands, then stores the result in the first operand
+  - when an immediate value is used as an operand, it is sign-extended to the length of the first operand
+  - works for signed and unsigned operations
+  - Updates the CF, OF, and SF flags
 - sub
-- div
+  - performs integer subtraction on the values of the first and second operands, then stores the result in the first operand
+  - when an immediate value is used as an operand, it is sign-extended to the length of the first operand
+  - works for signed and unsigned operations
+  - Updates the CF, OF, and SF flags
 - mul
-- idiv
+  - unsigned multiplication of RAX and the operand
+  - result is stored in RDX:RAX for 16, 32, and 64 bit registers
+  - OF and CF flags are cleared if the high-order bytes bits of the product are zero, or set if otherwise
+- div
+  - divides the unsigned value in the AX, DX:AX, EDX:EAX, or RAX:EAX registers by the given operand
+  - the result is stored in rdx:rax
+    - rax is the quotient
+    - rdx is the remainder
+  - Does not affect flags
 - imul
+  - signed multiplication
+  - with one operand, works like mul but signed
+  - with two operands, the first operand is multiplied by the second, then the result is truncated and stored in the first
+  - with three operands, the second two operands are multiplied together, then truncated and stored in the first operand register
+- idiv
+  - Same as div, but is signed
 - xor
   - Performs the logical exclusive-or operation on two registers
   - can be used with duplicate registers to zero it out
@@ -278,6 +302,13 @@ Offsets are particularly useful when taking parameters from the stack (rsp + off
   - Swaps the contents of the given two registers
   - Neither argument can be an immediate value. Both must be either registers or a register and memory.
   - 32-bit registers implicitly zeroes the high dword.
+- lea
+  - "Load effective address"
+  - loads the address of the second operand into the first
+  - important when you would like to calculate of an address inside brackets, and then place that calculated address into the dest operand
+  - never looks at the contents at a memory address
+  - ex: `lea ecx, [msg + 4 + eax*4 + edx]`
+  - better than mov for address math
 
 ## Networking
 
