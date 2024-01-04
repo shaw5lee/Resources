@@ -1,6 +1,5 @@
 # Programming Notes
 
-Table of contents
 - [Programming Notes](#programming-notes)
   - [Python](#python)
     - [Know for Board](#know-for-board)
@@ -16,7 +15,6 @@ Table of contents
       - [loops](#loops)
       - [structs](#structs)
       - [memory deferencing](#memory-deferencing)
-      - [man pages](#man-pages)
       - [(Additional note) networking](#additional-note-networking)
   - [Assembly](#assembly)
     - [Know for Board](#know-for-board-2)
@@ -76,25 +74,72 @@ Table of contents
   - I had an initial blocking recv
   - Then had a while-loop of non-blocking recv's (with the flag MSG_DONTWAIT) and excepted the Blocking IO error to know that comm was done
 #### struct module
-  - struct pack
-  - struct unpack
+  - Allows bytes to be interpreted as packed binary data
+  - Format strings describe the conversions to/from Python values
+  - pack(format, v1, v2, ...)
+    - returns a bytes object containing the formatted values given
+  - unpack(format, buffer)
+    - returns a tuple of one item (that item is another tuple with all the data) according to the format string from the buffer
 
 ## C
 
 ### Know for Board
 #### dynamic memory allocation
-  - malloc vs. calloc
-  - stack vs. heap
+- malloc vs. calloc
+  - malloc allocates memory of a given size, then returns a pointer to that block
+    - faster than calloc
+    - used to indicate memory allocation
+  - calloc allocates the memory of a given size and number of blocks, initializes those blocks to 0, then returns a pointer to the allocated memory
+    - slower than malloc
+    - used to indicate contiguous memory allocation
+    - adds some extra memory overhead
+  - The resulting pointer should be cast to the desired pointer type
+    - ex: int \*arr = (int \*)malloc(arr_len\*sizeof(int)); 
+    - ex: int \*arr = (int \*)calloc(arr_len, sizeof(int)); 
+- stack vs. heap
+  - Both the stack and heap are located in the computers RAM (Random Access Memory)
+  - stack
+    - memory allocation continuously managed by the OS
+    - stores local variabled in a LIFO order
+    - objects are of a limited, fixed size
+    - faster to access
+    - temporary data by functions and procedures
+  - memory
+    - dynamic memory allocation
+    - used for storing objects and data structures that require a longer lifespan than stack memory
+    - can allocate, deallocate, and resize during runtime
+    - stored data that is not tied to a specific function or procedure
 #### functions
+- must have some return value indicated in the header
+- functions must be declared before being used
 #### loops
-  - continue
-  - break
+- continue
+  - skips the rest of the code block and goes to the beginning of the next iteration of a loop
+- break
+  - stops iteration of a loop and resumes execution outside of/after the loop
 #### structs
-  - nested structs
+- nested structs
+  - Can use other structs within a struct
+  - requires either the 'struct' keyword, or the definition of the referenced struct to be typedef-ed
+    ```
+    typedef struct _worditem{
+      char *text;
+      struct _worditem *next;
+    } worditem;
+    ```
+    
+    ```
+    typedef struct _category{
+        char *name;
+        worditem *wordlist;
+    } category;
+    ```
 #### memory deferencing
   - "*"
+    - Returns either the value at a pointer, or declares a variable as a pointer
   - "[ ]"
-#### man pages
+    - retrieves the value at a pointer at the i-th index
+    - ex: `(int *)ptr[3]` == `*(ptr+sizeof(int)*3)`
 #### (Additional note) networking
   - For my recv, I MSG_PEEK flagged the recv, and continued to recv until the amount received was less than the buffer size
   - Once I had my size, I allocated that memory and then received `n` bytes with recv() into the allocated memory
@@ -315,6 +360,8 @@ https://stackoverflow.com/questions/27679969/how-to-create-a-linked-list-of-stru
 https://www.hackerearth.com/practice/data-structures/linked-list/singly-linked-list/tutorial/
 
 https://www.learn-c.org/en/Linked_lists
+
+https://www.baeldung.com/cs/memory-stack-vs-heap
 
 ### Assembly
 https://github.com/cyrus-and/gdb-dashboard
