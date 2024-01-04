@@ -31,9 +31,38 @@ Table of contents
 ## Python
 ### Know for Board
 - 'with' statement
+  - Ensures proper acquisition and release of resources
+    - aka, handles exceptions and in the case of files, closes it once done
 - socket module
   - send() vs. sendall()
+    - send(): equivalent to the C/syscall send() method
+      - It may send less bytes than requested, but will return how many bytes were actually sent
+    - sendall(): high-level Python-only method that sends the entire buffer passed
+      - Includes the "keep trying" implementation of send() that we did by hand
+      - Returns `None` on success, or raises an exception on error. 
+        - There is no way to know how much data was sent when an exception is raised
+        - But, an exception is not generally raised when not all the data was sent anyways (errors happen for other reasons)
   - clients and servers
+    - Server
+      - create socket
+      - bind to address
+      - listen at that address
+        - Then accept a connection when it comes in
+        - Can recv and send on this connection
+      - Once client disconnects, start listening again for new connections
+      - close the socket
+      - Can use threads for keyboard input during socket listening
+    - Client
+      - create socket
+      - connect to the address
+        - Can send a recv on this connection
+        - Should send a closing message to the server
+        - I decided to determine that the server was closed when no response was received
+      - close the socket
+    - Python socket module is *not* threadsafe
+    - In my implementation, to account for not all bytes being received at once;
+      - I had an initial blocking recv
+      - Then had a while-loop of non-blocking recv's (with the flag MSG_DONTWAIT) and excepted the Blocking IO error to know that comm was done
 - struct module
   - struct pack
   - struct unpack
@@ -57,6 +86,9 @@ Table of contents
   - "*"
   - "[ ]"
 - man pages
+- (Additional note) networking
+  - For my recv, I MSG_PEEK flagged the recv, and continued to recv until the amount received was less than the buffer size
+  - Once I had my size, I allocated that memory and then received `n` bytes with recv() into the allocated memory
 
 ### Useful links
 https://users.ece.utexas.edu/~adnan/gdb-refcard.pdf
