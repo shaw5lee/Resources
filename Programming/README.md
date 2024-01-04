@@ -329,8 +329,8 @@ Offsets are particularly useful when taking parameters from the stack (rsp + off
   - rotates all the bits in the given register left towards the *most significant* bit positions
 - shr
   - shifts all the bits in the given register right, towards the *least significant* bit positions
-  - 
 - shl
+  - shifts all the bits in the given register left, towards the *most significant* bit positions
 - xchg
   - Swaps the contents of the given two registers
   - Neither argument can be an immediate value. Both must be either registers or a register and memory.
