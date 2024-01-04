@@ -324,8 +324,12 @@ Offsets are particularly useful when taking parameters from the stack (rsp + off
   - can be used with duplicate registers to zero it out
     - a bit more efficient than `mov r, 0`
 - ror
+  - rotates all the bits in the given register right, towards the *least significant* bit positions
 - rol
+  - rotates all the bits in the given register left towards the *most significant* bit positions
 - shr
+  - shifts all the bits in the given register right, towards the *least significant* bit positions
+  - 
 - shl
 - xchg
   - Swaps the contents of the given two registers
