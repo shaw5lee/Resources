@@ -278,7 +278,7 @@ Offsets are particularly useful when taking parameters from the stack (rsp + off
   - result is stored in RDX:RAX for 16, 32, and 64 bit registers
   - OF and CF flags are cleared if the high-order bytes bits of the product are zero, or set if otherwise
 - div
-  - divides the unsigned value in the AX, DX:AX, EDX:EAX, or RAX:EAX registers by the given operand
+  - divides the unsigned value in the AX, DX:AX, EDX:EAX, or RDX:RAX registers by the given operand
   - the result is stored in rdx:rax
     - rax is the quotient
     - rdx is the remainder
