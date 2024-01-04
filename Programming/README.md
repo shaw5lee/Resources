@@ -4,13 +4,23 @@ Table of contents
 - [Programming Notes](#programming-notes)
   - [Python](#python)
     - [Know for Board](#know-for-board)
-    - [Concepts](#concepts)
+      - ['with' statement](#with-statement)
+      - [socket module](#socket-module)
+        - [send() vs. sendall()](#send-vs-sendall)
+        - [clients and servers](#clients-and-servers)
+      - [struct module](#struct-module)
   - [C](#c)
     - [Know for Board](#know-for-board-1)
-    - [Concepts](#concepts-1)
+      - [dynamic memory allocation](#dynamic-memory-allocation)
+      - [functions](#functions)
+      - [loops](#loops)
+      - [structs](#structs)
+      - [memory deferencing](#memory-deferencing)
+      - [man pages](#man-pages)
+      - [(Additional note) networking](#additional-note-networking)
   - [Assembly](#assembly)
     - [Know for Board](#know-for-board-2)
-    - [Concepts](#concepts-2)
+    - [General Info](#general-info)
       - [Registers](#registers)
         - [Registers as parameters (in order):](#registers-as-parameters-in-order)
         - [Important registers:](#important-registers)
@@ -21,7 +31,7 @@ Table of contents
       - [Flags](#flags)
       - [Frequently used instructions](#frequently-used-instructions)
   - [Networking](#networking)
-    - [Concepts](#concepts-3)
+    - [General Info](#general-info-1)
   - [Useful Links](#useful-links)
     - [Python](#python-1)
     - [C](#c-1)
@@ -31,11 +41,11 @@ Table of contents
 
 ## Python
 ### Know for Board
-- 'with' statement
+#### 'with' statement
   - Ensures proper acquisition and release of resources
     - aka, handles exceptions and in the case of files, closes it once done
-- socket module
-  - send() vs. sendall()
+#### socket module
+  ##### send() vs. sendall()
     - send(): equivalent to the C/syscall send() method
       - It may send less bytes than requested, but will return how many bytes were actually sent
     - sendall(): high-level Python-only method that sends the entire buffer passed
@@ -43,7 +53,7 @@ Table of contents
       - Returns `None` on success, or raises an exception on error. 
         - There is no way to know how much data was sent when an exception is raised
         - But, an exception is not generally raised when not all the data was sent anyways (errors happen for other reasons)
-  - clients and servers
+  ##### clients and servers
     - Server
       - create socket
       - bind to address
@@ -64,35 +74,29 @@ Table of contents
     - In my implementation, to account for not all bytes being received at once;
       - I had an initial blocking recv
       - Then had a while-loop of non-blocking recv's (with the flag MSG_DONTWAIT) and excepted the Blocking IO error to know that comm was done
-- struct module
+#### struct module
   - struct pack
   - struct unpack
-- official python documentation
-
-### Concepts
 
 ## C
 
 ### Know for Board
-- dynamic memory allocation
+#### dynamic memory allocation
   - malloc vs. calloc
   - stack vs. heap
-- functions
-- loops
+#### functions
+#### loops
   - continue
   - break
-- structs
+#### structs
   - nested structs
-- memory deferencing
+#### memory deferencing
   - "*"
   - "[ ]"
-- man pages
-- (Additional note) networking
+#### man pages
+#### (Additional note) networking
   - For my recv, I MSG_PEEK flagged the recv, and continued to recv until the amount received was less than the buffer size
   - Once I had my size, I allocated that memory and then received `n` bytes with recv() into the allocated memory
-
-### Concepts
-
 
 ## Assembly
 
@@ -106,7 +110,7 @@ Table of contents
 - caller vs. calle-saved registers
 - intel manual
 
-### Concepts
+### General Info
 
 We have been using x86_64 intel assmebly.
 - On x86, a word is 16 bits (as opposed to ARM where a word is 32 bits).
@@ -291,7 +295,7 @@ Offsets are particularly useful when taking parameters from the stack (rsp + off
 
 ## Networking
 
-### Concepts
+### General Info
 
 ## Useful Links
 ### Python
