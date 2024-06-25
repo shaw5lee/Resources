@@ -12,5 +12,8 @@ https://dayzerosec.com/blog/2021/02/02/getting-started.html
 Modern Binary Exploitation - CSCI 4968 of Rensselaer Polytechnic Institute
 https://github.com/RPISEC/MBE?tab=readme-ov-file#option-one---pre-made-warzone-vm
 
+Georgia Tech CS 6265
+https://tc.gts3.org/cs6265/2021/tut/tut06-02-advrop.html
+
 
 ## Red team testing
