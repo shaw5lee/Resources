@@ -15,5 +15,8 @@ https://github.com/RPISEC/MBE?tab=readme-ov-file#option-one---pre-made-warzone-v
 Georgia Tech CS 6265
 https://tc.gts3.org/cs6265/2021/tut/tut06-02-advrop.html
 
+BlackHat videos and writeups
 
 ## Red team testing
+HackTheBox
+TryHackme
